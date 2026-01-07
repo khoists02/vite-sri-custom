@@ -137,6 +137,8 @@ export default function sri(options: SriPluginOptions = {}): PluginOption {
 					sriByPathname =
 						await integrityProcessor.buildIntegrityMappings(bundle);
 
+					logger.info("SRI PATHNAME INFORMATION: " +JSON.stringify(sriByPathname));
+
 					// Step 3: Discover and map dynamic import relationships
 					logger.info("Analyzing dynamic import relationships");
 					const dynamicImportAnalyzer = new DynamicImportAnalyzer(

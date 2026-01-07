@@ -661,7 +661,9 @@ export async function addSriToHtml(
 		);
 
 		// Serialize the document back to HTML
-		return serialize(document);
+		const result = serialize(document);
+		logger.info("HTMLSerialize: " + result);
+		return result;
 	} catch (error) {
 		logger.error(
 			"Failed to parse HTML with parse5",

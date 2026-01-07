@@ -501,7 +501,8 @@ export async function processElement(
 	algorithm: "sha256" | "sha384" | "sha512",
 	crossorigin?: "anonymous" | "use-credentials",
 	resourceOpts?: LoadResourceOptions,
-	preComputedHashes?: Record<string, string>
+	preComputedHashes?: Record<string, string>,
+	logger?: BundleLogger,
 ): Promise<void> {
 	if (!element || !element.attrs) return;
 
@@ -511,6 +512,8 @@ export async function processElement(
 
 	const resourcePath = getAttrValue(element, attrName);
 	if (!resourcePath) return;
+
+	logger?.info("Resource Path: " + resourcePath);
 
 	// Check for pre-computed integrity hash first
 	let integrity: string | undefined;
@@ -641,7 +644,8 @@ export async function addSriToHtml(
 					algorithm,
 					crossorigin,
 					resourceOpts,
-					preComputedHashes
+					preComputedHashes,
+					logger,
 				).catch((err: any) => {
 					// Log processing errors but continue with other elements
 					const src =
